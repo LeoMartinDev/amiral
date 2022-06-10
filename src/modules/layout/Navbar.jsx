@@ -34,7 +34,7 @@ const useStyles = createStyles((theme, { isLightMode, color }) => {
       ...(isLightMode && {
         zIndex: 10,
         minWidth: 170,
-        backgroundColor: convertHexToRGBA(colorSet.at(5), 0.9),
+        backgroundColor: colorSet.at(5),
       }),
     },
     text: {
@@ -58,8 +58,12 @@ function MenuItem({ meta, path, isLightMode }) {
       to={path}
       className={cx(classes.button, { [classes.buttonHover]: hovered })}
     >
-      <Group sx={{ cursor: 'pointer' }}>
-        <ThemeIcon color={color} variant="filled">
+      <Group
+        sx={{
+          cursor: 'pointer',
+        }}
+      >
+        <ThemeIcon color={color} variant="filled" sx={{ marginLeft: 1 }}>
           {icon({ size: 16 })}
         </ThemeIcon>
 
