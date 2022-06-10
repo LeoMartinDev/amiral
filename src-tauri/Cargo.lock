@@ -58,13 +58,10 @@ name = "app"
 version = "0.1.0"
 dependencies = [
  "bollard",
- "futures",
- "futures-util",
  "serde",
  "serde_json",
  "tauri",
  "tauri-build",
- "tokio",
 ]
 
 [[package]]

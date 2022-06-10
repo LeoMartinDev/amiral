@@ -1,60 +1,99 @@
-import { Group, Navbar, Text, ThemeIcon, UnstyledButton } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
 import {
-  GitPullRequest,
-  AlertCircle,
-  Messages,
-  Database,
-} from 'tabler-icons-react';
+  createStyles,
+  Group,
+  Navbar,
+  Stack,
+  Text,
+  ThemeIcon,
+  UnstyledButton,
+  useMantineTheme,
+} from '@mantine/core';
+import { useHover, useMediaQuery } from '@mantine/hooks';
+import { Link } from 'react-router-dom';
+import { ROUTES } from '../core/Routes';
+import convertHexToRGBA from '../utils/convertHexToRGBA';
 
-function MenuItem({ icon, color, label }) {
+const useStyles = createStyles((theme, { isLightMode, color }) => {
+  const colorSet = theme.colors[color || 'blue'];
+
+  return {
+    button: {
+      display: 'block',
+      width: '100%',
+      padding: theme.spacing.xs,
+      borderRadius: theme.radius.sm,
+      backgroundColor:
+        theme.colorScheme === 'dark'
+          ? convertHexToRGBA(colorSet.at(7), 0.5)
+          : colorSet.at(0),
+    },
+    buttonHover: {
+      ...(!isLightMode && {
+        backgroundColor: convertHexToRGBA(colorSet.at(5), 0.9),
+      }),
+      ...(isLightMode && {
+        zIndex: 10,
+        minWidth: 170,
+        backgroundColor: convertHexToRGBA(colorSet.at(5), 0.9),
+      }),
+    },
+    text: {
+      color: theme.colorScheme === 'dark' ? colorSet.at(2) : colorSet.at(6),
+    },
+    textHover: {
+      color: theme.white,
+    },
+  };
+});
+
+function MenuItem({ meta, path, isLightMode }) {
+  const { icon, color, title } = meta;
+  const { hovered, ref } = useHover();
+  const { classes, cx } = useStyles({ isLightMode, color });
+
   return (
     <UnstyledButton
-      sx={(theme) => ({
-        display: 'block',
-        width: '100%',
-        padding: theme.spacing.xs,
-        borderRadius: theme.radius.sm,
-        color:
-          theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
-
-        '&:hover': {
-          backgroundColor:
-            theme.colorScheme === 'dark'
-              ? theme.colors.dark[6]
-              : theme.colors.gray[0],
-        },
-      })}
+      ref={ref}
+      component={Link}
+      to={path}
+      className={cx(classes.button, { [classes.buttonHover]: hovered })}
     >
-      <Group>
-        <ThemeIcon color={color} variant="light">
-          {icon}
+      <Group sx={{ cursor: 'pointer' }}>
+        <ThemeIcon color={color} variant="filled">
+          {icon({ size: 16 })}
         </ThemeIcon>
 
-        <Text size="sm">{label}</Text>
+        {(!isLightMode || (isLightMode && hovered)) && (
+          <Text
+            size="sm"
+            className={cx(classes.text, { [classes.textHover]: hovered })}
+          >
+            {title}
+          </Text>
+        )}
       </Group>
     </UnstyledButton>
   );
 }
 
-const data = [
-  { icon: <GitPullRequest size={16} />, color: 'blue', label: 'Pull Requests' },
-  { icon: <AlertCircle size={16} />, color: 'teal', label: 'Open Issues' },
-  { icon: <Messages size={16} />, color: 'violet', label: 'Discussions' },
-  { icon: <Database size={16} />, color: 'grape', label: 'Databases' },
-];
-
 export default function AppNavbar() {
-  const isSmAndUp = useMediaQuery('(min-width: 800px)');
+  const theme = useMantineTheme();
+  const isSmAndUp = useMediaQuery(`(min-width: ${theme.breakpoints.md}px)`);
+
+  const routes = ROUTES.filter(({ meta }) => !!meta);
 
   return (
-    <Navbar width={{ base: 300 }} p="xs">
+    <Navbar width={{ base: isSmAndUp ? 200 : 70 }} p="xs">
       <Navbar.Section grow mt="xs">
-        <div>
-          {data.map((link) => (
-            <MenuItem {...link} key={link.label} />
+        <Stack spacing="xs">
+          {routes.map((route) => (
+            <MenuItem
+              {...route}
+              isLightMode={!isSmAndUp}
+              key={route.meta.title}
+            />
           ))}
-        </div>
+        </Stack>
       </Navbar.Section>
     </Navbar>
   );
