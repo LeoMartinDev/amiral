@@ -1,6 +1,7 @@
 import { createStyles, ScrollArea, Stack, Table, Text } from '@mantine/core';
 import { invoke } from '@tauri-apps/api/tauri';
 import { useEffect, useState } from 'react';
+import listImages from '../core/api/list-images';
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -30,9 +31,14 @@ const useStyles = createStyles((theme) => ({
 }));
 
 export default function Images() {
+  const { classes, cx } = useStyles();
+  const [scrolled, setScrolled] = useState(false);
+  const [images, setImages] = useState([]);
+
   const getImages = async () => {
-    // const images = await invoke('list_images');
-    // console.log(images);
+    const images = await listImages();
+
+    setImages(images);
   };
 
   useEffect(() => {
@@ -47,16 +53,13 @@ export default function Images() {
     initialize();
   }, []);
 
-  const { classes, cx } = useStyles();
-  const [scrolled, setScrolled] = useState(false);
-
-  // const rows = data.map((row) => (
-  //   <tr key={row.name}>
-  //     <td>{row.name}</td>
-  //     <td>{row.email}</td>
-  //     <td>{row.company}</td>
-  //   </tr>
-  // ));
+  const rows = images.map((row) => (
+    <tr key={row.id}>
+      <td>{row.id}</td>
+      <td>{(row.labels || []).join(', ')}</td>
+      <td>{row.size}</td>
+    </tr>
+  ));
 
   return (
     <ScrollArea
@@ -66,12 +69,12 @@ export default function Images() {
       <Table sx={{ minWidth: 700 }}>
         <thead className={cx(classes.header, { [classes.scrolled]: scrolled })}>
           <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Company</th>
+            <th>ID</th>
+            <th>Labels</th>
+            <th>Size</th>
           </tr>
         </thead>
-        {/* <tbody>{rows}</tbody> */}
+        <tbody>{rows}</tbody>
       </Table>
     </ScrollArea>
   );
