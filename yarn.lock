@@ -482,6 +482,18 @@
     "estree-walker" "^2.0.1"
     "picomatch" "^2.2.2"
 
+"@tanstack/react-table@^8.0.0-beta.8":
+  "integrity" "sha512-hffDi9NnSI2tl/l3cW0CH8ErI1aJOWzIo6of0t1KMGdfES6mDcnfYMMRjm89ffaWogqVrdkKFJfbNAwV0g/0iA=="
+  "resolved" "https://registry.npmjs.org/@tanstack/react-table/-/react-table-8.0.0-beta.8.tgz"
+  "version" "8.0.0-beta.8"
+  dependencies:
+    "@tanstack/table-core" "8.0.0-beta.8"
+
+"@tanstack/table-core@8.0.0-beta.8":
+  "integrity" "sha512-uIl9kHsuyP09Mc5DBhCzBavRg/e2KNUnZmb7/SW6ec+l2cyC4n64c1B64rDVzIn0CaV/0ajuXB4gI3xfcGsPfg=="
+  "resolved" "https://registry.npmjs.org/@tanstack/table-core/-/table-core-8.0.0-beta.8.tgz"
+  "version" "8.0.0-beta.8"
+
 "@tauri-apps/api@^1.0.0-rc.6":
   "integrity" "sha512-/PbVs3/dUzid0/1XbML8tAkRSOmp+6Gv9ql02HGt3aIjNTvaL2902qEbiTX6xK++3oUoKJJ88t+V6IiNd1JUkw=="
   "resolved" "https://registry.npmjs.org/@tauri-apps/api/-/api-1.0.0-rc.6.tgz"
@@ -631,6 +643,11 @@
   "integrity" "sha512-rpw6JPxK6Rfg1zLOYCSwle2GFOOsnjmDYDaBwEcwoOg4qlsIVCN789VkBZDJAGi4T07gI4YSutR43t9Zz4Lzuw=="
   "resolved" "https://registry.npmjs.org/csstype/-/csstype-3.0.9.tgz"
   "version" "3.0.9"
+
+"date-fns@^2.28.0":
+  "integrity" "sha512-8d35hViGYx/QH0icHYCeLmsLmMUheMmTyV9Fcm6gvNwdw31yXXH+O85sOBJ+OLnLQMKZowvpKb6FgMIQjcpvQw=="
+  "resolved" "https://registry.npmjs.org/date-fns/-/date-fns-2.28.0.tgz"
+  "version" "2.28.0"
 
 "debug@^4.1.0":
   "integrity" "sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ=="
@@ -804,7 +821,12 @@
     "picocolors" "^1.0.0"
     "source-map-js" "^1.0.2"
 
-"react-dom@^16.8.0 || ^17 || ^18", "react-dom@^18.0.0", "react-dom@>=16.8", "react-dom@>=16.8.0":
+"pretty-bytes@^6.0.0":
+  "integrity" "sha512-6UqkYefdogmzqAZWzJ7laYeJnaXDy2/J+ZqiiMtS7t7OfpXWTlaeGMwX8U6EFvPV/YWWEKRkS8hKS4k60WHTOg=="
+  "resolved" "https://registry.npmjs.org/pretty-bytes/-/pretty-bytes-6.0.0.tgz"
+  "version" "6.0.0"
+
+"react-dom@^16.8.0 || ^17 || ^18", "react-dom@^18.0.0", "react-dom@>=16", "react-dom@>=16.8", "react-dom@>=16.8.0":
   "integrity" "sha512-fU1Txz7Budmvamp7bshe4Zi32d0ll7ect+ccxNu9FlObT605GOEB8BfO4tmRJ39R5Zj831VCpvQ05QPBW5yb+w=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-18.1.0.tgz"
   "version" "18.1.0"
@@ -859,7 +881,7 @@
     "use-composed-ref" "^1.3.0"
     "use-latest" "^1.2.1"
 
-"react@^16.8 || ^17.0", "react@^16.8.0 || ^17 || ^18", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^18.0.0", "react@^18.1.0", "react@>= 16.8.0", "react@>=16.8", "react@>=16.8.0":
+"react@^16.8 || ^17.0", "react@^16.8.0 || ^17 || ^18", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^18.0.0", "react@^18.1.0", "react@>= 16.8.0", "react@>=16", "react@>=16.8", "react@>=16.8.0":
   "integrity" "sha512-4oL8ivCz5ZEPyclFQXaNksK3adutVS8l2xzZU0cqEFrE9Sb7fC0EFK5uEk74wIreL1DERyjvsU915j1pcT2uEQ=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.1.0.tgz"
   "version" "18.1.0"
@@ -930,6 +952,11 @@
   "integrity" "sha512-TX12VEymcICeHOUd0f086JgMZhwogol36aTbEZBe4KnvHIjr7TyHFUUKkqydgPwjdJPEA+6Y1XOglJ9IGKVC5Q=="
   "resolved" "https://registry.npmjs.org/tabler-icons-react/-/tabler-icons-react-1.48.1.tgz"
   "version" "1.48.1"
+
+"timeago.js@^4.0.2":
+  "integrity" "sha512-a7wPxPdVlQL7lqvitHGGRsofhdwtkoSXPGATFuSOA2i1ZNQEPLrGnj68vOp2sOJTCFAQVXPeNMX/GctBaO9L2w=="
+  "resolved" "https://registry.npmjs.org/timeago.js/-/timeago.js-4.0.2.tgz"
+  "version" "4.0.2"
 
 "to-fast-properties@^2.0.0":
   "integrity" "sha1-3F5pjL0HkmW8c+A3doGk5Og/YW4="
