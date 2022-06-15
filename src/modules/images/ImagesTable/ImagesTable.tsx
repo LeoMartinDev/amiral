@@ -10,7 +10,7 @@ import prettyBytes from 'pretty-bytes';
 import { useState } from 'react';
 import { format } from 'timeago.js';
 
-import { Image } from '../../core/api/images.types';
+import { Image } from '../../core/api/images/images.types';
 import ColumnHeader from './ImagesTableColumnHeader';
 
 const useStyles = createStyles((theme) => ({
@@ -68,6 +68,16 @@ const defaultColumns = [
       enableSorting: false,
     }
   ),
+  table.createDataColumn((row) => row.id, {
+    id: 'imageId',
+    cell: (info) => {
+      const sha256 = info.getValue();
+
+      return sha256.split(':')[1].slice(0, 12);
+    },
+    header: () => <span>Image ID</span>,
+    enableSorting: false,
+  }),
   table.createDataColumn((row) => row.createdAt, {
     id: 'created',
     cell: (info) => {

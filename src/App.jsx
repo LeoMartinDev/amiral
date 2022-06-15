@@ -1,27 +1,38 @@
 import './App.css';
 
 import { useEffect, useState } from 'react';
-import {
-  MantineProvider,
-  ColorSchemeProvider,
-  AppShell,
-  Header,
-  Group,
-  ActionIcon,
-  Text,
-} from '@mantine/core';
+import { MantineProvider, ColorSchemeProvider, AppShell } from '@mantine/core';
 import { theme } from './theme';
 import { useColorScheme } from '@mantine/hooks';
 import { MemoryRouter } from 'react-router-dom';
-import { Sun, MoonStars } from 'tabler-icons-react';
 import Navbar from './modules/layout/Navbar';
 import { Routes } from './modules/core/Routes';
+import getInfo from './modules/core/api/get-info';
 
 function App() {
   const preferredColorScheme = useColorScheme();
   const [colorScheme, setColorScheme] = useState(preferredColorScheme);
   const toggleColorScheme = (value) =>
     setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
+  const [info, setInfo] = useState(null);
+
+  const getInfoData = async () => {
+    const info = await getInfo();
+
+    setInfo(() => info);
+  };
+
+  useEffect(() => {
+    const initialize = async () => {
+      try {
+        await getInfoData();
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    initialize();
+  }, []);
 
   return (
     <MemoryRouter>
@@ -43,23 +54,11 @@ function App() {
               display: 'flex',
               flexDirection: 'column',
             }}
-            navbar={<Navbar />}
-            header={
-              <Header height={60}>
-                <Group sx={{ height: '100%' }} px={20} position="apart">
-                  <ActionIcon
-                    variant="default"
-                    onClick={() => toggleColorScheme()}
-                    size={30}
-                  >
-                    {colorScheme === 'dark' ? (
-                      <Sun size={16} />
-                    ) : (
-                      <MoonStars size={16} />
-                    )}
-                  </ActionIcon>
-                </Group>
-              </Header>
+            navbar={
+              <Navbar
+                toggleColorScheme={toggleColorScheme}
+                colorScheme={colorScheme}
+              />
             }
             styles={(theme) => ({
               main: {

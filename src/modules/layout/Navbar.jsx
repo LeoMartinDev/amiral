@@ -1,4 +1,6 @@
 import {
+  ActionIcon,
+  Center,
   createStyles,
   Group,
   Navbar,
@@ -10,8 +12,8 @@ import {
 } from '@mantine/core';
 import { useHover, useMediaQuery } from '@mantine/hooks';
 import { Link } from 'react-router-dom';
+import { MoonStars, Sun } from 'tabler-icons-react';
 import { ROUTES } from '../core/Routes';
-import convertHexToRGBA from '../utils/convertHexToRGBA';
 
 const useStyles = createStyles((theme, { isLightMode, color }) => {
   const colorSet = theme.colors[color || 'blue'];
@@ -24,12 +26,12 @@ const useStyles = createStyles((theme, { isLightMode, color }) => {
       borderRadius: theme.radius.sm,
       backgroundColor:
         theme.colorScheme === 'dark'
-          ? convertHexToRGBA(colorSet.at(7), 0.5)
+          ? theme.fn.rgba(colorSet.at(7), 0.5)
           : colorSet.at(0),
     },
     buttonHover: {
       ...(!isLightMode && {
-        backgroundColor: convertHexToRGBA(colorSet.at(5), 0.9),
+        backgroundColor: theme.fn.rgba(colorSet.at(5), 0.9),
       }),
       ...(isLightMode && {
         zIndex: 10,
@@ -80,14 +82,14 @@ function MenuItem({ meta, path, isLightMode }) {
   );
 }
 
-export default function AppNavbar() {
+export default function AppNavbar({ toggleColorScheme, colorScheme }) {
   const theme = useMantineTheme();
   const isSmAndUp = useMediaQuery(`(min-width: ${theme.breakpoints.md}px)`);
 
   const routes = ROUTES.filter(({ meta }) => !!meta);
 
   return (
-    <Navbar width={{ base: isSmAndUp ? 200 : 70 }} p="xs">
+    <Navbar width={{ base: isSmAndUp ? 200 : 70 }} height="100%" p="xs">
       <Navbar.Section grow mt="xs">
         <Stack spacing="xs">
           {routes.map((route) => (
@@ -98,6 +100,22 @@ export default function AppNavbar() {
             />
           ))}
         </Stack>
+      </Navbar.Section>
+
+      <Navbar.Section>
+        <Center>
+          <ActionIcon
+            variant="default"
+            onClick={() => toggleColorScheme()}
+            size={30}
+          >
+            {colorScheme === 'dark' ? (
+              <Sun size={16} />
+            ) : (
+              <MoonStars size={16} />
+            )}
+          </ActionIcon>
+        </Center>
       </Navbar.Section>
     </Navbar>
   );

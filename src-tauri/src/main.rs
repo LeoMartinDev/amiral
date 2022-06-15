@@ -29,9 +29,21 @@ async fn list_images() -> Vec<bollard::service::ImageSummary> {
   return images.to_vec();
 }
 
+#[tauri::command]
+async fn get_info() -> bollard::service::SystemInfo {
+  let docker = Docker::connect_with_socket_defaults().unwrap();
+
+  let info = docker
+    .info()
+    .await
+    .unwrap();
+
+  return info;
+}
+
 fn main() {
   tauri::Builder::default()
-    .invoke_handler(tauri::generate_handler![get_version, list_images])
+    .invoke_handler(tauri::generate_handler![get_version, list_images, get_info])
     .run(tauri::generate_context!())
     .expect("error while running application");
 }

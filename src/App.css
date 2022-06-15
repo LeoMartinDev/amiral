@@ -6,9 +6,11 @@ body,
 }
 
 .mantine-AppShell-body {
+  height: 100%;
   overflow: hidden;
 }
 
 .mantine-AppShell-main {
   overflow: auto;
+  padding: 0;
 }

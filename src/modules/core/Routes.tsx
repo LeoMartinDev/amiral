@@ -4,11 +4,6 @@ import { Container, Icon } from 'tabler-icons-react';
 import Containers from '../containers/Containers';
 import Images from '../images/Images';
 
-// { icon: <GitPullRequest size={16} />, color: 'blue', label: 'Pull Requests' },
-// { icon: <AlertCircle size={16} />, color: 'teal', label: 'Open Issues' },
-// { icon: <Messages size={16} />, color: 'violet', label: 'Discussions' },
-// { icon: <Database size={16} />, color: 'grape', label: 'Databases' },
-
 type RouteMeta = {
   title: string;
   icon: Icon;

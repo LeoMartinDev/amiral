@@ -1,6 +1,6 @@
 import { invoke } from '@tauri-apps/api/tauri';
 import { isEmpty } from 'lodash-es';
-import { Image } from '../images.types';
+import { Image } from './images.types';
 
 type ListImagesResponse = {
   Id: string;
@@ -26,7 +26,7 @@ export default async function listImages(): Promise<Image[]> {
     parentId: isEmpty(image.ParentId) ? undefined : image.ParentId,
     repoDigests: image.RepoDigests,
     repoTags: image.RepoTags,
-    size: image.Size > -1 ? image.Size : undefined,
+    size: image.Size,
     sharedSize: image.SharedSize > -1 ? image.SharedSize : undefined,
     virtualSize: image.VirtualSize > -1 ? image.VirtualSize : undefined,
   }));
