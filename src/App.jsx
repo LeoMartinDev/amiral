@@ -1,13 +1,15 @@
 import './App.css';
 
-import { useEffect, useState } from 'react';
-import { MantineProvider, ColorSchemeProvider, AppShell } from '@mantine/core';
-import { theme } from './theme';
+import { AppShell, ColorSchemeProvider, MantineProvider } from '@mantine/core';
 import { useColorScheme } from '@mantine/hooks';
+import { ModalsProvider } from '@mantine/modals';
+import { useEffect, useState } from 'react';
 import { MemoryRouter } from 'react-router-dom';
-import Navbar from './modules/layout/Navbar';
-import { Routes } from './modules/core/Routes';
+
+import { theme } from './theme';
 import getInfo from './modules/core/api/get-info';
+import { Routes } from './modules/core/Routes';
+import Navbar from './modules/layout/Navbar';
 
 function App() {
   const preferredColorScheme = useColorScheme();
@@ -45,32 +47,34 @@ function App() {
           withGlobalStyles
           withNormalizeCSS
         >
-          <AppShell
-            navbarOffsetBreakpoint="sm"
-            padding="md"
-            sx={{
-              height: '100vh',
-              width: '100vw',
-              display: 'flex',
-              flexDirection: 'column',
-            }}
-            navbar={
-              <Navbar
-                toggleColorScheme={toggleColorScheme}
-                colorScheme={colorScheme}
-              />
-            }
-            styles={(theme) => ({
-              main: {
-                backgroundColor:
-                  theme.colorScheme === 'dark'
-                    ? theme.colors.dark[8]
-                    : theme.colors.gray[0],
-              },
-            })}
-          >
-            <Routes />
-          </AppShell>
+          <ModalsProvider>
+            <AppShell
+              navbarOffsetBreakpoint="sm"
+              padding="md"
+              sx={{
+                height: '100vh',
+                width: '100vw',
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+              navbar={
+                <Navbar
+                  toggleColorScheme={toggleColorScheme}
+                  colorScheme={colorScheme}
+                />
+              }
+              styles={(theme) => ({
+                main: {
+                  backgroundColor:
+                    theme.colorScheme === 'dark'
+                      ? theme.colors.dark[8]
+                      : theme.colors.gray[0],
+                },
+              })}
+            >
+              <Routes />
+            </AppShell>
+          </ModalsProvider>
         </MantineProvider>
       </ColorSchemeProvider>
     </MemoryRouter>
